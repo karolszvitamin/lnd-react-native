@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Button,
   FlatList,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -22,7 +21,7 @@ export default function App() {
   const addGoalHandler = () => {
     setGoalsList((prevValue) => [
       ...prevValue,
-      { text: enteredGoalText, key: Math.random().toString() },
+      { text: enteredGoalText, id: Math.random().toString() },
     ]);
     setEnteredGoalText("");
   };
@@ -31,9 +30,9 @@ export default function App() {
     deleteGoal(pressedGoalData);
   };
 
-  const deleteGoal = (goalToDelete) => {
+  const deleteGoal = (goalToDeleteData) => {
     setGoalsList((prevValue) =>
-      prevValue.filter((goalData) => goalData.key !== goalToDelete.key)
+      prevValue.filter((goalData) => goalData.id !== goalToDeleteData.id)
     );
   };
   return (
@@ -50,6 +49,9 @@ export default function App() {
       <View style={styles.goalsContainer}>
         <FlatList
           data={goalsList}
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
           renderItem={(itemData) => {
             return (
               <TouchableOpacity

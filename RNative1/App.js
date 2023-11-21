@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
   Button,
+  FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -18,17 +20,20 @@ export default function App() {
   };
 
   const addGoalHandler = () => {
-    setGoalsList((prevValue) => [...prevValue, enteredGoalText]);
+    setGoalsList((prevValue) => [
+      ...prevValue,
+      { text: enteredGoalText, key: Math.random().toString() },
+    ]);
     setEnteredGoalText("");
   };
 
-  const goalPressHandler = (pressedGoalText) => {
-    deleteGoal(pressedGoalText);
+  const goalPressHandler = (pressedGoalData) => {
+    deleteGoal(pressedGoalData);
   };
 
   const deleteGoal = (goalToDelete) => {
     setGoalsList((prevValue) =>
-      prevValue.filter((goal) => goal !== goalToDelete)
+      prevValue.filter((goalData) => goalData.key !== goalToDelete.key)
     );
   };
   return (
@@ -43,16 +48,23 @@ export default function App() {
         <Button title={"Add goal"} onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        {goalsList.map((goal) => (
-          <TouchableOpacity
-            key={goal}
-            onPress={() => {
-              goalPressHandler(goal);
-            }}
-          >
-            <Text style={styles.goalElement}>{goal}</Text>
-          </TouchableOpacity>
-        ))}
+        <FlatList
+          data={goalsList}
+          renderItem={(itemData) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  goalPressHandler(itemData.item);
+                }}
+              >
+                <View style={styles.goalContainer}>
+                  <Text style={styles.goalText}>{itemData.item.text}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          }}
+          alwaysBounceVertical={false}
+        />
       </View>
     </View>
   );
@@ -84,14 +96,16 @@ const styles = StyleSheet.create({
     flex: 5,
     gap: 8,
   },
-  goalElement: {
-    width: "100%",
-    padding: 4,
-    fontSize: 24,
-    textAlign: "center",
-
-    borderWidth: 2,
-    borderColor: "#cccccc",
+  goalContainer: {
+    width: "90%",
+    margin: 4,
+    padding: 8,
+    backgroundColor: "#5e0acc",
     borderRadius: 8,
+  },
+  goalText: {
+    fontSize: 18,
+    width: "100%",
+    color: "white",
   },
 });

@@ -9,6 +9,8 @@ import {
   View,
 } from "react-native";
 
+import GoalItem from "./components/GoalItem";
+
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState("");
 
@@ -50,19 +52,17 @@ export default function App() {
         <FlatList
           data={goalsList}
           keyExtractor={(item, index) => {
+            console.log(item.id);
             return item.id;
           }}
-          renderItem={(itemData) => {
+          renderItem={(itemInfo) => {
             return (
-              <TouchableOpacity
+              <GoalItem
+                goalData={itemInfo.item}
                 onPress={() => {
-                  goalPressHandler(itemData.item);
+                  goalPressHandler(itemInfo.item);
                 }}
-              >
-                <View style={styles.goalContainer}>
-                  <Text style={styles.goalText}>{itemData.item.text}</Text>
-                </View>
-              </TouchableOpacity>
+              />
             );
           }}
           alwaysBounceVertical={false}
@@ -97,17 +97,5 @@ const styles = StyleSheet.create({
   goalsContainer: {
     flex: 5,
     gap: 8,
-  },
-  goalContainer: {
-    width: "90%",
-    margin: 4,
-    padding: 8,
-    backgroundColor: "#5e0acc",
-    borderRadius: 8,
-  },
-  goalText: {
-    fontSize: 18,
-    width: "100%",
-    color: "white",
   },
 });

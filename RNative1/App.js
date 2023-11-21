@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState("");
@@ -37,9 +44,14 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         {goalsList.map((goal) => (
-          <Text key={goal} onPress={() => goalPressHandler(goal)}>
-            {goal}
-          </Text>
+          <TouchableOpacity
+            key={goal}
+            onPress={() => {
+              goalPressHandler(goal);
+            }}
+          >
+            <Text style={styles.goalElement}>{goal}</Text>
+          </TouchableOpacity>
         ))}
       </View>
     </View>
@@ -70,5 +82,16 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     flex: 5,
+    gap: 8,
+  },
+  goalElement: {
+    width: "100%",
+    padding: 4,
+    fontSize: 24,
+    textAlign: "center",
+
+    borderWidth: 2,
+    borderColor: "#cccccc",
+    borderRadius: 8,
   },
 });

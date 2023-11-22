@@ -18,8 +18,8 @@ const GoalItems = ({ goalData, onPress }) => {
 
 const styles = StyleSheet.create({
   goalContainer: {
-    width: "90%",
-    margin: 4,
+    width: "100%",
+    marginBottom: 12,
     backgroundColor: "#5e0acc",
     borderRadius: 8,
   },

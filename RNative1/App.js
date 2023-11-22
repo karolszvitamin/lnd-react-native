@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FlatList, StyleSheet, View } from "react-native";
+import { Button, FlatList, StatusBar, StyleSheet, View } from "react-native";
 
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
@@ -21,6 +21,7 @@ export default function App() {
       ...prevValue,
       { text: goalText, id: Math.random().toString() },
     ]);
+    cancelAddGoalHandler();
   };
 
   const goalPressHandler = (pressedGoalData) => {
@@ -33,44 +34,48 @@ export default function App() {
     );
   };
   return (
-    <View style={styles.appContainer}>
-      <Button
-        title="Add new goal"
-        color={"#b91919"}
-        onPress={startAddGoalHandler}
-      />
-      <GoalInput
-        isModalVisible={isModalVisible}
-        onAddGoal={addGoalToList}
-        onCancel={cancelAddGoalHandler}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={goalsList}
-          keyExtractor={(item) => {
-            return item.id;
-          }}
-          renderItem={(itemInfo) => {
-            return (
-              <GoalItem goalData={itemInfo.item} onPress={goalPressHandler} />
-            );
-          }}
-          alwaysBounceVertical={false}
+    <>
+      <StatusBar style={"light"} />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add new goal"
+          color={"#a065ec"}
+          onPress={startAddGoalHandler}
         />
+        <GoalInput
+          isModalVisible={isModalVisible}
+          onAddGoal={addGoalToList}
+          onCancel={cancelAddGoalHandler}
+        />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={goalsList}
+            keyExtractor={(item) => {
+              return item.id;
+            }}
+            renderItem={(itemInfo) => {
+              return (
+                <GoalItem goalData={itemInfo.item} onPress={goalPressHandler} />
+              );
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   appContainer: {
     paddingTop: 50,
-    paddingHorizontal: 16,
+    paddingHorizontal: 24,
     flex: 1,
+    gap: 16,
   },
 
   goalsContainer: {
     flex: 5,
-    gap: 8,
+    width: "100%",
   },
 });

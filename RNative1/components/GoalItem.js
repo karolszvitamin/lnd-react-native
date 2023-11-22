@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   goalText: {
     fontSize: 18,
     width: "100%",
-    color: "white",
+    color: "#ffffff",
   },
 });
 

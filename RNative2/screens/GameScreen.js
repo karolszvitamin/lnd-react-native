@@ -56,6 +56,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
   const checkIfGameIsOver = () => {
     if (guessedNumber === userNumber) {
+      console.log(guessedNumber);
       onGameOver();
     }
   };

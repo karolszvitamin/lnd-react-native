@@ -33,7 +33,7 @@ export default function App() {
     );
   }
 
-  if (isGameOver === true) {
+  if (isGameOver === true && pickedNumber !== null) {
     screen = <GameOverScreen />;
   }
 

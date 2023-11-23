@@ -17,7 +17,7 @@ export default function App() {
   const [pickedNumber, setPickedNumber] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const handleGameOver = () => {
+  const gameOverHandler = () => {
     setIsGameOver(true);
   };
 
@@ -29,7 +29,7 @@ export default function App() {
 
   if (pickedNumber !== null) {
     screen = (
-      <GameScreen onGameOver={handleGameOver} userNumber={pickedNumber} />
+      <GameScreen onGameOver={gameOverHandler} userNumber={pickedNumber} />
     );
   }
 

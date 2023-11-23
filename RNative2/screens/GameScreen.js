@@ -13,7 +13,7 @@ const generateRandomBetween = (min, max, exclude) => {
   }
 };
 
-const GameScreen = ({ userNumber }) => {
+const GameScreen = ({ userNumber, onGameOver }) => {
   const initialGuessedNumber = generateRandomBetween(1, 100, userNumber);
   const [guessedNumber, setGuessedNumber] = useState(initialGuessedNumber);
   const [maxNumber, setMaxNumber] = useState(100);
@@ -33,8 +33,8 @@ const GameScreen = ({ userNumber }) => {
       maxNumber,
       guessedNumber
     );
+    setMinNumber(guessedNumber);
     setGuessedNumber(newGuessNumber);
-    setMinNumber(guessedNumber + 1);
     setGuessedNumbersList((prevValue) => [...prevValue, newGuessNumber]);
   };
 
@@ -49,16 +49,20 @@ const GameScreen = ({ userNumber }) => {
       guessedNumber,
       guessedNumber
     );
+    setMaxNumber(guessedNumber);
     setGuessedNumber(newGuessNumber);
-    setMaxNumber(guessedNumber - 1);
     setGuessedNumbersList((prevValue) => [...prevValue, newGuessNumber]);
   };
 
-  useEffect(() => {
+  const checkIfGameIsOver = () => {
     if (guessedNumber === userNumber) {
-      console.log("CORRECT, Finish game");
+      onGameOver();
     }
-  }, [guessedNumber, userNumber]);
+  };
+
+  useEffect(() => {
+    checkIfGameIsOver();
+  }, [checkIfGameIsOver]);
 
   return (
     <View style={styles.screen}>
@@ -77,7 +81,6 @@ const GameScreen = ({ userNumber }) => {
           data={gussedNumbersList}
           renderItem={({ item }) => <Text>{item}</Text>}
           keyExtractor={(item) => {
-            console.log({ item });
             return item;
           }}
         />

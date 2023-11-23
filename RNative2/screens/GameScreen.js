@@ -3,6 +3,9 @@ import Title from "../components/UI/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "../components/Game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
+import Card from "../components/UI/Card";
+import InstructionText from "../components/UI/InstructionText";
+import { Ionicons } from "@expo/vector-icons";
 
 const generateRandomBetween = (min, max, exclude) => {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -33,7 +36,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
       maxNumber,
       guessedNumber
     );
-    setMinNumber(guessedNumber);
+    console.log(guessedNumber, maxNumber);
+    setMinNumber(guessedNumber + 1);
     setGuessedNumber(newGuessNumber);
     setGuessedNumbersList((prevValue) => [...prevValue, newGuessNumber]);
   };
@@ -49,6 +53,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
       guessedNumber,
       guessedNumber
     );
+    console.log(minNumber, guessedNumber);
     setMaxNumber(guessedNumber);
     setGuessedNumber(newGuessNumber);
     setGuessedNumbersList((prevValue) => [...prevValue, newGuessNumber]);
@@ -56,8 +61,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
 
   const checkIfGameIsOver = () => {
     if (guessedNumber === userNumber) {
-      console.log(guessedNumber);
-      onGameOver();
+      onGameOver(gussedNumbersList.length);
     }
   };
 
@@ -69,14 +73,23 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
       <NumberContainer>{guessedNumber}</NumberContainer>
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={lowerNumberGuessHandler}>-</PrimaryButton>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Higher or lower
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={lowerNumberGuessHandler}>
+              <Ionicons name="md-remove" size={24} color="#ffffff" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={higherNumberGuessHandler}>
+              <Ionicons name="md-add" size={24} color="#ffffff" />
+            </PrimaryButton>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton onPress={higherNumberGuessHandler}>+</PrimaryButton>
-        </View>
-      </View>
+      </Card>
       <View>
         <FlatList
           data={gussedNumbersList}
@@ -101,6 +114,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  instructionText: {
+    marginBottom: 12,
   },
 });
 

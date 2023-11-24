@@ -1,4 +1,11 @@
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import Title from "../components/UI/Title";
 import { useEffect, useState } from "react";
 import NumberContainer from "../components/Game/NumberContainer";
@@ -22,6 +29,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
   const [guessedNumber, setGuessedNumber] = useState(initialGuessedNumber);
   const [maxNumber, setMaxNumber] = useState(100);
   const [minNumber, setMinNumber] = useState(1);
+
+  const { width, height } = useWindowDimensions();
 
   const [gussedNumbersList, setGuessedNumbersList] = useState([
     initialGuessedNumber,
@@ -70,9 +79,8 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     checkIfGameIsOver();
   }, [checkIfGameIsOver]);
 
-  return (
-    <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+  let content = (
+    <>
       <NumberContainer>{guessedNumber}</NumberContainer>
       <Card>
         <InstructionText style={styles.instructionText}>
@@ -91,6 +99,32 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <View style={styles.buttonsContainerWide}>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={lowerNumberGuessHandler}>
+            <Ionicons name="md-remove" size={24} color="#ffffff" />
+          </PrimaryButton>
+        </View>
+
+        <NumberContainer>{guessedNumber}</NumberContainer>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={higherNumberGuessHandler}>
+            <Ionicons name="md-add" size={24} color="#ffffff" />
+          </PrimaryButton>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.screen}>
+      <Title>Opponent's Guess</Title>
+      {content}
       <View style={styles.listContainer}>
         <FlatList
           data={gussedNumbersList}
@@ -113,10 +147,15 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+    alignItems: "center",
   },
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
+  },
+  buttonsContainerWide: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   buttonContainer: {
     flex: 1,

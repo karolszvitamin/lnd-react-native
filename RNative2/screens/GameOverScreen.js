@@ -11,6 +11,7 @@ import {
 import Title from "../components/UI/Title";
 import Colors from "../constants/colors";
 import PrimaryButton from "../components/UI/PrimaryButton";
+import FONTS from "../constants/fonts";
 
 const GameOverScreen = ({ amountOfGuesses, numberToGuess, onStartNewGame }) => {
   const { width, height } = useWindowDimensions();
@@ -75,13 +76,13 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   summaryText: {
-    fontFamily: "open-sans",
+    fontFamily: FONTS.regular,
     fontSize: 24,
     textAlign: "center",
     marginBottom: 24,
   },
   highlight: {
-    fontFamily: "open-sans-bold",
+    fontFamily: FONTS.bold,
     color: Colors.primary500,
   },
 });

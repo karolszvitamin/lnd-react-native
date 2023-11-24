@@ -13,16 +13,23 @@ import Colors from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
+import FONTS from "./constants/fonts";
 
 export default function App() {
   const [pickedNumber, setPickedNumber] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
   const [amountOfGuesses, setAmountOfGuesses] = useState(0);
 
+  const { bold, regular } = FONTS;
   const [fontsLoaded] = useFonts({
-    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
-    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    [regular]: require("./assets/fonts/OpenSans-Regular.ttf"),
+    [bold]: require("./assets/fonts/OpenSans-Bold.ttf"),
   });
+
+  const obj = {
+    [bold]: 1,
+    [regular]: 2,
+  };
 
   if (fontsLoaded === false) {
     return (
@@ -66,7 +73,8 @@ export default function App() {
   }
 
   return (
-    <StatusBar style={"light"}>
+    <>
+      <StatusBar style={"light"}></StatusBar>
       <LinearGradient
         colors={[Colors.primary700, Colors.accent500]}
         style={styles.rootScreen}
@@ -80,7 +88,7 @@ export default function App() {
           <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
         </ImageBackground>
       </LinearGradient>
-    </StatusBar>
+    </>
   );
 }
 

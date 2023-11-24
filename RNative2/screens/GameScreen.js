@@ -6,6 +6,7 @@ import PrimaryButton from "../components/UI/PrimaryButton";
 import Card from "../components/UI/Card";
 import InstructionText from "../components/UI/InstructionText";
 import { Ionicons } from "@expo/vector-icons";
+import GuessLogItem from "../components/Game/GuessLogItem";
 
 const generateRandomBetween = (min, max, exclude) => {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -39,7 +40,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     console.log(guessedNumber, maxNumber);
     setMinNumber(guessedNumber + 1);
     setGuessedNumber(newGuessNumber);
-    setGuessedNumbersList((prevValue) => [...prevValue, newGuessNumber]);
+    setGuessedNumbersList((prevValue) => [newGuessNumber, ...prevValue]);
   };
 
   const lowerNumberGuessHandler = () => {
@@ -56,7 +57,7 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     console.log(minNumber, guessedNumber);
     setMaxNumber(guessedNumber);
     setGuessedNumber(newGuessNumber);
-    setGuessedNumbersList((prevValue) => [...prevValue, newGuessNumber]);
+    setGuessedNumbersList((prevValue) => [newGuessNumber, ...prevValue]);
   };
 
   const checkIfGameIsOver = () => {
@@ -90,10 +91,15 @@ const GameScreen = ({ userNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
-      <View>
+      <View style={styles.listContainer}>
         <FlatList
           data={gussedNumbersList}
-          renderItem={({ item }) => <Text>{item}</Text>}
+          renderItem={({ item, index }) => (
+            <GuessLogItem
+              roundNumber={gussedNumbersList.length - index}
+              guess={item}
+            />
+          )}
           keyExtractor={(item) => {
             return item;
           }}
@@ -117,6 +123,10 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     marginBottom: 12,
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   },
 });
 

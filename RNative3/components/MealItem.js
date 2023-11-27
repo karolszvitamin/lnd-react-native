@@ -15,7 +15,6 @@ const MealItem = ({
   affordability,
   duration,
 }) => {
-  console.log({ imageUrl });
   return (
     <View style={styles.mealItem}>
       <Pressable

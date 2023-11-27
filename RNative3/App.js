@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import SCREENS from "./constants/SCREENS";
 import MealDetailsScreen from "./screens/MealDetailsScreen";
+import { Button, Text } from "react-native";
 const Stack = createNativeStackNavigator();
 
 export default function App() {

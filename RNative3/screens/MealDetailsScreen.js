@@ -1,6 +1,16 @@
 import { useLayoutEffect, useMemo } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { MEALS } from "../data/dummy-data";
+import Subtitle from "../components/MealDetails/Subtitle";
+import List from "../components/MealDetails/List";
+import IconButton from "../components/IconButton";
 
 const MealDetailsScreen = ({ route, navigation }) => {
   const mealId = route.params.mealId;
@@ -11,36 +21,75 @@ const MealDetailsScreen = ({ route, navigation }) => {
   }, [MEALS]);
 
   useLayoutEffect(() => {
+    const headerButtonPressHandler = () => {
+      console.log("pressed");
+    };
+
     navigation.setOptions({
       title: mealData.title,
+      headerRight: () => (
+        <IconButton
+          onPress={headerButtonPressHandler}
+          icon="star"
+          color="#ffffff"
+        />
+      ),
     });
   }, [mealData, navigation]);
 
-  console.log(mealData.imageUrl);
   return (
-    <View>
-      <Image
-        source={{ uri: mealData.imageUrl }}
-        style={{ width: 100, height: 100 }}
-      />
-      <Text>{mealData.title}</Text>
+    <ScrollView style={styles.rootContainer}>
+      <Image source={{ uri: mealData.imageUrl }} style={styles.image} />
+      <Text style={styles.title}>{mealData.title}</Text>
       <View style={styles.details}>
-        <Text>{mealData.duration}m</Text>
-        <Text>{mealData.complexity.toUpperCase()}</Text>
-        <Text>{mealData.affordability.toUpperCase()}</Text>
+        <Text style={styles.textStyle}>{mealData.duration}m</Text>
+        <Text style={styles.textStyle}>
+          {mealData.complexity.toUpperCase()}
+        </Text>
+        <Text style={styles.textStyle}>
+          {mealData.affordability.toUpperCase()}
+        </Text>
       </View>
-      <Text>Ingredients</Text>
-    </View>
+      <View style={styles.listOuterContainer}>
+        <View style={styles.listContainer}>
+          <Subtitle>Ingredients</Subtitle>
+          <List dataArray={mealData.ingredients} />
+          <Subtitle>Steps</Subtitle>
+          <List dataArray={mealData.steps} />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    marginBottom: 24,
+  },
+  image: {
+    width: "100%",
+    height: 350,
+  },
   details: {
     flexDirection: "row",
     alignItems: "center",
     padding: 8,
     justifyContent: "center",
     gap: 8,
+  },
+  title: {
+    fontWeight: 700,
+    fontSize: 24,
+    margin: 8,
+    textAlign: "center",
+    color: "#ffffff",
+  },
+  listContainer: {
+    width: "80%",
+    justifyContent: "center",
+  },
+  listOuterContainer: {
+    alignItems: "center",
   },
 });
 

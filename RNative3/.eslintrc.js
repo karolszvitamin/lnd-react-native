@@ -28,7 +28,7 @@ module.exports = {
     "react-native/no-unused-styles": 2,
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
-    "react-native/no-raw-text": 2,
+    "react-native/no-raw-text": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react-native/no-color-literals": "off",

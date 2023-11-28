@@ -1,12 +1,5 @@
 import { useLayoutEffect, useMemo } from "react";
-import {
-  Button,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import Subtitle from "../components/MealDetails/Subtitle";
 import List from "../components/MealDetails/List";
@@ -26,7 +19,7 @@ const MealDetailsScreen = ({ route, navigation }) => {
     };
 
     navigation.setOptions({
-      title: mealData.title,
+      title: "About the Meal",
       headerRight: () => (
         <IconButton
           onPress={headerButtonPressHandler}

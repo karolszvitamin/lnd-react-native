@@ -10,6 +10,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import "react-native-gesture-handler";
 import FavouritesScreen from "./screens/FavouritesScreen";
 import { Ionicons } from "@expo/vector-icons";
+import FavouritesContextProvider from "./store/context/favourites-context";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -59,34 +60,36 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: "#351401" },
-            headerTintColor: "#ffffff",
-            contentStyle: {
-              backgroundColor: "#3f2f25",
-            },
-          }}
-        >
-          <Stack.Screen
-            name={SCREENS.allCategories}
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
+      <FavouritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: "#351401" },
+              headerTintColor: "#ffffff",
+              contentStyle: {
+                backgroundColor: "#3f2f25",
+              },
             }}
-          />
-          <Stack.Screen
-            name={SCREENS.mealsOverview}
-            component={MealsOverviewScreen}
-          />
+          >
+            <Stack.Screen
+              name={SCREENS.allCategories}
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name={SCREENS.mealsOverview}
+              component={MealsOverviewScreen}
+            />
 
-          <Stack.Screen
-            name={SCREENS.mealDetails}
-            component={MealDetailsScreen}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name={SCREENS.mealDetails}
+              component={MealDetailsScreen}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavouritesContextProvider>
     </>
   );
 }

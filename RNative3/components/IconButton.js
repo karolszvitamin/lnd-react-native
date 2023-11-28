@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 const IconButton = ({ icon, color, onPress }) => {
   return (
     <Pressable onPress={onPress} style={(pressed) => pressed && styles.pressed}>
-      <Ionicons name={icon} color={color} />
+      <Ionicons name={icon} color={color} size={24} />
     </Pressable>
   );
 };

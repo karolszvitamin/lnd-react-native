@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ExpensesSummary from "./ExpensesSummary";
 import ExpensesList from "./ExpensesList";
 import { GlobalStyles } from "../../constants/styles";
@@ -34,6 +34,30 @@ const DUMMY_EXPENSES = [
     amount: 100,
     date: new Date("2005-12-19"),
   },
+  {
+    id: "e999",
+    description: "Shrek",
+    amount: 100,
+    date: new Date("2005-12-19"),
+  },
+  {
+    id: "e6",
+    description: "Shrek",
+    amount: 100,
+    date: new Date("2005-12-19"),
+  },
+  {
+    id: "e7",
+    description: "Shrek",
+    amount: 100,
+    date: new Date("2005-12-19"),
+  },
+  {
+    id: "e8",
+    description: "Shrek",
+    amount: 100,
+    date: new Date("2005-12-19"),
+  },
 ];
 
 const ExpensesOutput = ({ expensesPeriod }) => {
@@ -48,6 +72,7 @@ const ExpensesOutput = ({ expensesPeriod }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 24,
+    paddingBottom: 0,
     backgroundColor: GlobalStyles.colors.primary700,
     flex: 1,
   },

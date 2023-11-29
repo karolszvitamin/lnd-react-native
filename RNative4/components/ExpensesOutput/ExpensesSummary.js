@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
 const ExpensesSummary = ({ expenses, periodName }) => {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   sum: {
     fontSize: 16,
-    fontWeight: 700,
+    fontWeight: "700",
     color: GlobalStyles.colors.primary500,
   },
 });

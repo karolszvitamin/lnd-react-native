@@ -4,6 +4,7 @@ import IconButton from "../components/UI/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import Button from "../components/UI/Button";
 import { ExpensesContext } from "../store/expenses-context";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 const ManageExpense = ({ route, navigation }) => {
   const editedExpenseId = route.params?.expenseId;
@@ -20,35 +21,10 @@ const ManageExpense = ({ route, navigation }) => {
     expensesCtx.deleteExpense(editedExpenseId);
     navigation.goBack();
   };
-  const cancelHandler = () => {
-    navigation.goBack();
-  };
-  const confirmHandler = () => {
-    if (isEditing === true) {
-      expensesCtx.updateExpense(editedExpenseId, {
-        description: "edited expense",
-        amount: 30.99,
-        date: new Date("2023-11-27"),
-      });
-    } else {
-      expensesCtx.addExpense({
-        description: "added expense",
-        amount: 30.99,
-        date: new Date("2023-11-27"),
-      });
-    }
-    navigation.goBack();
-  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.buttonsContainer}>
-        <Button style={styles.button} onPress={cancelHandler} mode="flat">
-          Cancel
-        </Button>
-        <Button style={styles.button} onPress={confirmHandler}>
-          {isEditing === true ? "Update" : "Add"}
-        </Button>
-      </View>
+      <ExpenseForm />
       {isEditing === true && (
         <View style={styles.deleteContainer}>
           <IconButton

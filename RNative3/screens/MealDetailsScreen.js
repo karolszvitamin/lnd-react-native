@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
-    fontWeight: 700,
+    fontWeight: "700",
     fontSize: 24,
     margin: 8,
     textAlign: "center",

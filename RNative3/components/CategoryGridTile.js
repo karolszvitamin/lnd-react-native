@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontWeight: 700,
+    fontWeight: "700",
     fontSize: 18,
   },
 });

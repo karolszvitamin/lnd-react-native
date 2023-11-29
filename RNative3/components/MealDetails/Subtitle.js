@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     color: "#e2b497",
-    fontWeight: 700,
+    fontWeight: "700",
     textAlign: "center",
   },
   subtitleContainer: {

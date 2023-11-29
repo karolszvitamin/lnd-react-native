@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   title: {
-    fontWeight: 700,
+    fontWeight: "700",
     textAlign: "center",
     fontSize: 18,
     padding: 8,

@@ -68,13 +68,14 @@ export default function App() {
     <>
       <StatusBar style="light" />
       <ExpensesContextProvider>
-        <NavigationContainer
-          screenOptions={{
-            headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
-            tintColor: "#ffffff",
-          }}
-        >
-          <Stack.Navigator>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
+              headerTintColor: "#ffffff",
+              tintColor: "#ffffff",
+            }}
+          >
             <Stack.Screen
               name="ExpensesOverview"
               component={ExpensesOverview}
